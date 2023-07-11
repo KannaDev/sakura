@@ -3,6 +3,7 @@ const cors = require("cors");
 const chalk = require("chalk");
 const cheerio = require("cheerio");
 const axios = require("axios");
+const request = require("superagent");
 const UserAgent = require("user-agents");
 const { wrapper } = require("axios-cookiejar-support");
 const { CookieJar } = require("tough-cookie");
@@ -145,7 +146,12 @@ app.get("/app/:appid", async (req, res) => {
 
       hasResponse = true;
 
-      res.redirect(downloadAttributes.href);
+      res.set(
+        `Content-Disposition`,
+        `attachment; filename=${steamApp.data.name.replace(/ /g, `_`)}.zip`
+      );
+   
+      request(downloadAttributes.href).pipe(res);
     }
   }
 
