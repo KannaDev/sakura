@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet" />
+    <link href="/styles/index.css" rel="stylesheet" />
+    <title>❀ » sakura /// <%= app.data.name %></title>
+  </head>
+  <body>
+    <div class="split-screen-wrapper">
+      <div class="left-column">
+        <div class="hero-container">
+          <div class="hero">
+            <div class="hero-text">
+              <h1 class="hero-text-header">❀ » sakura</h1>
+              <p class="hero-text-description">
+                <b><%= app.data.name %></b>
+              </p>
+            </div>
+            <div class="button-wrapper">
+              <div class="button-wrapper">
+                <a
+                  class="button primary"
+                  href="/app/<%= app.data.steam_appid %>"
+                  >Download <i class="fas fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+            <div class="counters-wrapper">
+              <div class="counter-wrapper">
+                <h3>
+                  <b>AppID</b>
+                </h3>
+                <p><%= app.data.steam_appid %></p>
+              </div>
+              <div class="counter-wrapper">
+                <h3>
+                  <b>Release Date</b>
+                </h3>
+                <p><%= app.data.release_date.date %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <p>
+        © 2023 <b>sakuracdn.moe</b> - All Rights Reserved. Not affiliated with
+        Steam.
+      </p>
+    </footer>
+  </body>
+</html>

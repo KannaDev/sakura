@@ -12,19 +12,42 @@ console.clear();
 const port = 3001;
 
 const app = express();
+
+app.set("view engine", "ejs");
+
 app.use(cors());
+app.use(express.static("public"));
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
 
 const log = (info) => console.log(chalk.hex(`#f8c8dc`)(`[❀ » sakura] ${info}`));
 
+app.get("/", async (req, res) => {
+  res.render(`index`);
+});
+
+app.get("/dl/:appid", async (req, res) => {
+  const steamAPIResponse = await client.get(
+    `https://store.steampowered.com/api/appdetails?appids=${req.params.appid}&lang=en-us`
+  );
+
+  const steamApp = steamAPIResponse.data[req.params.appid];
+
+  if (steamApp.success) {
+    res.render(`app`, { app: steamApp });
+  } else {
+    res.render(`index`);
+  }
+});
+
 app.get("/app/:appid", async (req, res) => {
   var hasResponse = false;
 
   const steamAPIResponse = await client.get(
-    `https://store.steampowered.com/api/appdetails?appids=${req.params.appid}`
+    `https://store.steampowered.com/api/appdetails?appids=${req.params.appid}&lang=en-us`
   );
+
   const steamApp = steamAPIResponse.data[req.params.appid];
 
   log(
@@ -73,7 +96,7 @@ app.get("/app/:appid", async (req, res) => {
       const uploadHavenResponse = await client.get(buttonAttributes.href, {
         headers: {
           "User-Agent": new UserAgent().toString(),
-          "Referer": match.href,
+          Referer: match.href,
         },
       });
 
@@ -107,7 +130,7 @@ app.get("/app/:appid", async (req, res) => {
         {
           headers: {
             "User-Agent": new UserAgent().toString(),
-            "Referer": match.href,
+            Referer: match.href,
             "Content-Type": "application/x-www-form-urlencoded",
           },
         }
@@ -129,6 +152,10 @@ app.get("/app/:appid", async (req, res) => {
   if (!hasResponse) res.sendStatus(204);
 
   console.log();
+});
+
+app.get(`*`, async (req, res) => {
+  res.render(`index`);
 });
 
 app.listen(port, () => log(`listening on port ${port}\n`));

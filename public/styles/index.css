@@ -1,0 +1,537 @@
+:root {
+  --font-family: Satoshi, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+
+  --background-color-1: hsl(0, 0%, 1%);
+  --background-color-2: hsl(0, 0%, 12%);
+  --background-color-3: hsla(240, 3%, 6%, 0.5);
+
+  --text-color-1: hsl(30, 50%, 98%);
+  --text-color-2: hsl(0, 0%, 100%);
+
+  --hue-1: hsl(243, 75%, 59%);
+  --hue-2: hsl(201, 100%, 50%);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-family);
+  background-color: var(--background-color-1);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+nav.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  height: 4rem;
+  transition: background-color 0.2s, height 0.2s;
+}
+
+/* <div class="navbar-wrapper">
+  <nav class="navbar">
+    <div class="navbar-icon">
+      <img src="img/logo.png" alt="logo" class="navbar-img" />
+    </div>
+    <div class="navbar-routes">
+      <a href="/" class="navbar-link">Home</a>
+      <a href="https://discord.gg/biolink" class="navbar-link">Discord</a>
+      <a href="/tos.html" class="navbar-link">ToS</a>
+      <a href="/premium.html" class="navbar-link hue">Premium</a>
+    </div>
+    <div class="dropdown">
+      <button>HubSpot Resources</button>
+      <div class="dropdown-content">
+      <a href="https://blog.hubspot.com/">Blog</a>
+      <a href="https://academy.hubspot.com/">Academy</a>
+      <a href="https://www.youtube.com/user/hubspot">YouTube</a>
+      </div>
+    </div>
+  </nav>
+  </div> */
+
+.navbar-icon {
+  left: 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4rem;
+  height: 4rem;
+  margin-right: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar-icon:hover {
+  transform: scale(1.05);
+}
+
+.navbar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navbar-routes {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  align-items: center;
+}
+
+.navbar-link {
+  position: relative;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-color-1);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar-link:hover {
+  transform: scale(0.95);
+  filter: brightness(1.1);
+}
+
+.hue {
+  color: var(--hue-2);
+  font-weight: 600;
+}
+
+/* <div class="navbar-wrapper">
+  <nav class="navbar">
+    <div class="navbar-icon">
+      <img src="img/logo.png" alt="logo" class="navbar-img" />
+    </div>
+    <div class="navbar-routes">
+      <a href="/" class="navbar-link">Home</a>
+      <a href="https://discord.gg/biolink" class="navbar-link">Discord</a>
+      <a href="/tos.html" class="navbar-link">ToS</a>
+      <a href="/premium.html" class="navbar-link hue">Premium</a>
+    </div>
+    <div class="dropdown">
+      <button><i class="fas fa-user"></i> USERNAME</button>
+      <div class="dropdown-content">
+        <a href="/"><i class="fas fa-home"></i> Dashboard</a>
+        <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </nav>
+  </div> */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.dropdown button {
+  font-family: var(--font-family);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color-1);
+  background-color: var(--background-color-2);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown button i {
+  margin-right: 0.5rem;
+}
+
+/*
+    make the content inline on the right but longer on the left 
+  */
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  background-color: var(--background-color-2);
+  border-radius: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown:hover .dropdown-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-content a {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-color-1);
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.dropdown-content a:hover {
+  filter: brightness(1.1);
+}
+
+.dropdown-content a i {
+  margin-right: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  nav.navbar {
+    display: none;
+  }
+}
+
+/* <div class="split-screen-wrapper">
+<div class="left-column">
+  <div class="hero-container">
+    <div class="hero">
+      <div class="hero-text">
+        <h1 class="hero-text-header"><b>feds</b>.lol</h1>
+        <p class="hero-text-description"></p>
+      </div>
+      <div class="button-wrapper">
+        <div class="button-wrapper">
+          <a class="button primary"
+            >Get Started <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+      </div>
+      <div class="counters-wrapper">
+        <div class="counter-wrapper">
+          <h3>statistic</h3>
+          <p>1337</p>
+        </div>
+        <div class="counter-wrapper">
+          <h3>statistic</h3>
+          <p>1337</p>
+        </div>
+        <div class="counter-wrapper">
+          <h3>statistic</h3>
+          <p>1337</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="right-column">
+  <div class="preview-wrapper">
+    <!-- box with image taking up the whole height of the left and then three bullets on the right -->
+    <div class="preview">
+      <div class="preview-image">
+        <img src="img/example.png" alt="preview" />
+      </div>
+    </div>
+  </div>
+</div>
+</div> */
+
+.split-screen-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "left right";
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 600px;
+  padding: 0;
+  margin: 0;
+  grid-area: left;
+}
+
+.right-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;
+  max-height: 600px;
+  padding: 0;
+  margin: 0;
+  grid-area: right;
+}
+
+/* hero */
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  margin: 1rem;
+}
+
+.hero-text {
+  margin: 1rem;
+}
+
+.hero-text-header {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--text-color-1);
+  text-align: center;
+  margin: 0;
+  animation: fade-in-left 1s ease-in-out;
+}
+
+b {
+  font-weight: 700;
+}
+
+.hero-text-description {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-color-1);
+  text-align: center;
+  margin: 0;
+  animation: fade-in-left 1.2s ease-in-out;
+}
+
+.dud {
+  color: #757575;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-2);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  padding: 1rem 2rem;
+  margin: 0.5rem;
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+  animation: fade-in-left 1.4s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.primary {
+  background-color: var(--hue-1);
+  border: 2px solid var(--hue-1);
+}
+
+.primary:hover {
+  background-color: transparent;
+}
+
+.primary i {
+  margin-left: 0.5rem;
+}
+
+.counters-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.counter-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  animation: fade-in-left 1.6s ease-in-out;
+}
+
+.counter-wrapper h3 {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: var(--text-color-1);
+  text-align: center;
+  margin: 0;
+}
+
+.counter-wrapper p {
+  font-size: 2.3rem;
+  font-weight: 600;
+  color: var(--text-color-1);
+  text-align: center;
+  margin: 0;
+}
+
+/* preview */
+/* dont allow thd image to be too big or be cropped */
+.preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  animation: fade-in-right 1.8s ease-in-out;
+}
+
+.preview {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.preview-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.preview-image img {
+  width: 100%;
+  object-fit: scale-down;
+  border-radius: 10px;
+  margin: 0;
+  padding: 0;
+  transition: all 0.35s ease-in-out;
+  transform: perspective(200px);
+  /* add a glow around the border */
+  box-shadow: 0 0 0 0.25rem var(--hue-1);
+}
+
+.preview-image img:hover {
+  transform: perspective(200px) rotateX(0.7deg) rotateY(-0.7deg) scale(1.05);
+  filter: brightness(1.1) saturate(1.1);
+}
+
+@media screen and (max-width: 1300px) {
+  .right-column {
+    display: none;
+  }
+
+  .split-screen-wrapper {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .counters-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+  }
+
+  .counter-wrapper {
+    padding: 0.25rem;
+  }
+}
+
+/* footer */
+.footer {
+  border-top: 1px solid var(--bg-color-light);
+  border-radius: 10px;
+  color: var(--text-color);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
+
+.footer p {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-color-1);
+  text-align: center;
+  margin: 0;
+  padding: 0.5rem 1rem;
+}
+
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  0% {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
