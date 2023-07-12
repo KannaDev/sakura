@@ -29,9 +29,11 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/apps", async (req, res) => {
-  const response = await axios.get(`https://api.steampowered.com/ISteamApps/GetAppList/v2`);
+  const response = await axios.get(
+    `https://api.steampowered.com/ISteamApps/GetAppList/v2`
+  );
   res.json(response.data.applist.apps);
-})
+});
 
 app.get("/app/:appid", async (req, res) => {
   const steamAPIResponse = await client.get(
@@ -153,7 +155,9 @@ app.get("/dl/:appid", async (req, res) => {
 
       res.set(
         `Content-Disposition`,
-        `attachment; filename=${steamApp.data.name.replace(/ /g, `_`)}.zip`
+        `attachment; filename=${new URL(
+          downloadAttributes.href
+        ).searchParams.get("filename")}`
       );
 
       request(downloadAttributes.href).pipe(res);
