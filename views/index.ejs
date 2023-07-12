@@ -31,13 +31,17 @@
                 games.find(
                   (game) =>
                     game.name.trim().toLowerCase() ===
-                    event.target.value.trim().toLowerCase()
+                      event.target.value.trim().toLowerCase() ||
+                    (parseInt(event.target.value) &&
+                      game.appid.toString() === event.target.value.toString())
                 )
               ) {
                 const game = games.find(
                   (game) =>
                     game.name.trim().toLowerCase() ===
-                    event.target.value.trim().toLowerCase()
+                      event.target.value.trim().toLowerCase() ||
+                    (parseInt(event.target.value) &&
+                      game.appid.toString() === event.target.value.toString())
                 );
 
                 window.location.href = `/dl/${game.appid}`;
