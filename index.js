@@ -28,6 +28,11 @@ app.get("/", async (req, res) => {
   res.render(`index`);
 });
 
+app.get("/apps", async (req, res) => {
+  const response = await axios.get(`https://api.steampowered.com/ISteamApps/GetAppList/v2`);
+  res.json(response.data.applist.apps);
+})
+
 app.get("/dl/:appid", async (req, res) => {
   const steamAPIResponse = await client.get(
     `https://store.steampowered.com/api/appdetails?appids=${req.params.appid}&lang=en-us`
@@ -38,7 +43,7 @@ app.get("/dl/:appid", async (req, res) => {
   if (steamApp.success) {
     res.render(`app`, { app: steamApp });
   } else {
-    res.render(`index`);
+    res.redirect(`/`);
   }
 });
 
@@ -150,7 +155,7 @@ app.get("/app/:appid", async (req, res) => {
         `Content-Disposition`,
         `attachment; filename=${steamApp.data.name.replace(/ /g, `_`)}.zip`
       );
-   
+
       request(downloadAttributes.href).pipe(res);
     }
   }
@@ -161,7 +166,7 @@ app.get("/app/:appid", async (req, res) => {
 });
 
 app.get(`*`, async (req, res) => {
-  res.render(`index`);
+  res.redirect(`/`);
 });
 
 app.listen(port, () => log(`listening on port ${port}\n`));

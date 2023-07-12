@@ -7,8 +7,63 @@
     <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet" />
     <link href="/styles/index.css" rel="stylesheet" />
     <title>❀ » sakura /// <%= app.data.name %></title>
+    <script>
+      var dclhandler = false;
+      if (document.readyState !== "loading") {
+        start();
+      } else {
+        dclhandler = true;
+        document.addEventListener("DOMContentLoaded", start);
+      }
+
+      async function start() {
+        if (dclhandler) {
+          document.removeEventListener("DOMContentLoaded", start);
+        }
+
+        const games = await (await fetch(`/apps`)).json();
+
+        document
+          .getElementById("searchbar")
+          .addEventListener("keydown", (event) => {
+            if (event.keyCode === 13) {
+              if (
+                games.find(
+                  (game) =>
+                    game.name.trim().toLowerCase() ===
+                    event.target.value.trim().toLowerCase()
+                )
+              ) {
+                const game = games.find(
+                  (game) =>
+                    game.name.trim().toLowerCase() ===
+                    event.target.value.trim().toLowerCase()
+                );
+
+                window.location.href = `/dl/${game.appid}`;
+              }
+            }
+          });
+      }
+    </script>
   </head>
   <body>
+    <div class="navbar-wrapper">
+      <nav class="navbar">
+        <div class="navbar-routes">
+          <a href="/" class="navbar-link">Home</a>
+          <a href="https://github.com/vftable/sakura" class="navbar-link"
+            >GitHub</a
+          >
+          <input
+            type="text"
+            placeholder="Search..."
+            class="navbar-searchbar"
+            id="searchbar"
+          />
+        </div>
+      </nav>
+    </div>
     <div class="split-screen-wrapper">
       <div class="left-column">
         <div class="hero-container">
@@ -48,8 +103,8 @@
     </div>
     <footer class="footer">
       <p>
-        © 2023 <b>sakura.nekos.host</b> - All Rights Reserved. Not affiliated with
-        Steam.
+        © 2023 <b>sakura.nekos.host</b> - All Rights Reserved. Made by
+        <b>@vftable</b> and <b>@KannaDev</b>. Not affiliated with Steam.
       </p>
     </footer>
   </body>
