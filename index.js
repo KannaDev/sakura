@@ -33,7 +33,7 @@ app.get("/apps", async (req, res) => {
   res.json(response.data.applist.apps);
 })
 
-app.get("/dl/:appid", async (req, res) => {
+app.get("/app/:appid", async (req, res) => {
   const steamAPIResponse = await client.get(
     `https://store.steampowered.com/api/appdetails?appids=${req.params.appid}&lang=en-us`
   );
@@ -47,7 +47,7 @@ app.get("/dl/:appid", async (req, res) => {
   }
 });
 
-app.get("/app/:appid", async (req, res) => {
+app.get("/dl/:appid", async (req, res) => {
   var hasResponse = false;
 
   const steamAPIResponse = await client.get(
